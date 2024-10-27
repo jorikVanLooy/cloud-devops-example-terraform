@@ -12,6 +12,7 @@ on:
 permissions:
   id-token: write
 
+
 jobs:
   Terraform:
     name: "Terraform"
