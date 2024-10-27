@@ -22,7 +22,7 @@ data "azurerm_resource_group" "rg" {
 }
 
 resource "azurerm_log_analytics_workspace" "workspace" {
-  name                = "workspace-${env}"
+  name                = "workspace-${var.env}"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
   sku                 = "PerGB2018"
