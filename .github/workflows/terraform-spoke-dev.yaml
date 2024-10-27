@@ -48,7 +48,7 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -input=false -var-file=variables/DEV.tfvars -var-files=variables/all.tfvars
+      run: terraform plan -input=false -var-file=variables/DEV.tfvars -var-file=variables/all.tfvars
       working-directory: spoke
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
