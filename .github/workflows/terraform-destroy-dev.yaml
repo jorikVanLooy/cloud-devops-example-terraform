@@ -9,6 +9,7 @@ on:
 jobs:
   Terraform:
     name: "Terraform"
+    environment: "production"
     defaults:
       run:
         shell: bash
