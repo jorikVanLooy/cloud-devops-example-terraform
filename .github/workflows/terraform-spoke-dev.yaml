@@ -26,8 +26,14 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+    - name: pwd and ls
+      run: pwd && ls -lah
+
     - name: cd spoke
       run : cd spoke
+
+    - name: pwd and ls
+      run: pwd && ls -lah
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
