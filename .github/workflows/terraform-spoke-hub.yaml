@@ -48,10 +48,10 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -input=false -var-file=variables/variables.tfvars
+      run: terraform plan -input=false -var-file=variables/variables.tfvars -var 'client_secret=${{ secrets.client_secret }}'
       working-directory: hub
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false -var-file=variables/variables.tfvars
+      run: terraform apply -auto-approve -input=false -var-file=variables/variables.tfvars -var 'client_secret=${{ secrets.client_secret }}'
       working-directory: hub
