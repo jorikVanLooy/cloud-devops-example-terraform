@@ -7,6 +7,9 @@ on:
     paths-ignore:
       - "**"
 
+permissions:
+  id-token: write
+
 jobs:
   Terraform:
     name: "Terraform"

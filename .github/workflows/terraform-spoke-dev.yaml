@@ -8,6 +8,9 @@ on:
     - "!hub/**"
   pull_request:
 
+permissions:
+  id-token: write
+
 jobs:
   Terraform:
     name: "Terraform dev"
