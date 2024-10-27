@@ -15,6 +15,11 @@ permissions:
 
 jobs:
   Terraform:
+    env: 
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
     name: "Terraform"
     environment: "production"
     defaults:
@@ -41,10 +46,10 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -input=false -var-file=variables/variables.tfvars -var 'client_secret=${{ secrets.client_secret }}'
+      run: terraform plan -input=false -var-file=variables/variables.tfvars
       working-directory: hub
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false -var-file=variables/variables.tfvars -var 'client_secret=${{ secrets.client_secret }}'
+      run: terraform apply -auto-approve -input=false -var-file=variables/variables.tfvars
       working-directory: hub
