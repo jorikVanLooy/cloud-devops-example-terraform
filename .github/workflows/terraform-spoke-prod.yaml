@@ -7,7 +7,7 @@ on:
       - "spoke/**"
       - "!hub/**"
   pull_request:
-    branches: [ "dev", "hotfix/**" ]
+    branches: [ "main", "hotfix/**" ]
 
 jobs:
   Terraform:
