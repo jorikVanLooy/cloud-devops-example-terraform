@@ -8,7 +8,7 @@ on:
       - "!spoke/**"
 
   pull_request:
-    branches: [ "main"]
+    branches: [ "dev", "hotifx/**"]
 
 jobs:
   Terraform:
