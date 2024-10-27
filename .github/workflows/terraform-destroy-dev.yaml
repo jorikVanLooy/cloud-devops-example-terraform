@@ -15,7 +15,7 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
     name: "Terraform"
-    environment: "production"
+    environment: "dev"
     defaults:
       run:
         shell: bash
