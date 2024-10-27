@@ -41,11 +41,13 @@ resource "azurerm_container_app" "aca" {
   container_app_environment_id = azurerm_container_app_environment.aca_env.id
   resource_group_name          = data.azurerm_resource_group.rg.name
   revision_mode                = "Single"
+
   ingress {
     target_port = 8080
 
     traffic_weight {
-      percentage = 100
+      latest_revision = true
+      percentage      = 100
     }
   }
 
