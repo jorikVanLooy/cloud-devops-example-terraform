@@ -44,7 +44,7 @@ resource "azurerm_container_app" "aca" {
 
   template {
     container {
-      name   = "java react example app"
+      name   = "java-react-example-app"
       image  = "jorikvl/cloud-devops-example:latest"
       cpu    = 0.25
       memory = "0.5Gi"
