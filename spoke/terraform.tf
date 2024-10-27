@@ -42,6 +42,15 @@ resource "azurerm_container_app" "aca" {
   resource_group_name          = data.azurerm_resource_group.rg.name
   revision_mode                = "Single"
 
+  ingress {
+    target_port = 8080
+
+    traffic_weight {
+      latest_revision = true
+      percentage      = 100
+    }
+  }
+
   template {
     container {
       name   = "java-react-example-app"
