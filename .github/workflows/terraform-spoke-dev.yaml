@@ -1,4 +1,4 @@
-name: 'Terraform'
+name: 'Terraform dev'
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   Terraform:
-    name: "Terraform"
+    name: "Terraform dev"
     defaults:
       run:
         shell: bash
@@ -26,34 +26,30 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-    - name: pwd and ls
-      run: pwd && ls -lah
-
-    - name: cd spoke
-      run : cd spoke
-
-    - name: pwd and ls
-      run: pwd && ls -lah
-
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
+      working-directory: spoke
 
     - name: Terraform select workspace
       run: terraform workspace select DEV
+      working-directory: spoke
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check
+      working-directory: spoke
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false -var-file=variables/DEV.tfvars -var-files=variables/all.tfvars
+      working-directory: spoke
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"dev"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false -var-file=variables/DEV.tfvars -var-file=variables/all.tfvars
+      working-directory: spoke
 
 
