@@ -2,7 +2,7 @@ name: 'Terraform Hub'
 
 on:
   push:
-    branches: [ "hub" ]
+    branches: [ "main" ]
     paths:
       - "hub/**"
       - "!spoke/**"
@@ -24,8 +24,6 @@ jobs:
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -43,6 +41,6 @@ jobs:
       working-directory: hub
 
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/"dev"' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false -var-file=variables/variables.tfvars
       working-directory: hub
