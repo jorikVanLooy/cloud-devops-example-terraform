@@ -41,9 +41,7 @@ resource "azurerm_container_app" "aca" {
   container_app_environment_id = azurerm_container_app_environment.aca_env.id
   resource_group_name          = data.azurerm_resource_group.rg.name
   revision_mode                = "Single"
-  registry {
-    server = "docker.io"
-  }
+
   ingress {
     target_port = 8080
 
@@ -56,7 +54,7 @@ resource "azurerm_container_app" "aca" {
   template {
     container {
       name   = "java-react-example-app"
-      image  = "jorikvl/cloud-devops-example:latest"
+      image  = "docker.io/jorikvl/cloud-devops-example:latest"
       cpu    = 0.25
       memory = "0.5Gi"
 
