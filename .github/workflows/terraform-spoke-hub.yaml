@@ -50,6 +50,6 @@ jobs:
       working-directory: hub
 
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false -var-file=variables/all.tfvars -var-file=variables/hub.tfvars
       working-directory: hub
