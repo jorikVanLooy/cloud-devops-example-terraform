@@ -43,7 +43,8 @@ resource "azurerm_container_app" "aca" {
   revision_mode                = "Single"
 
   ingress {
-    target_port = 8080
+    target_port      = 8080
+    external_enabled = true
 
     traffic_weight {
       latest_revision = true
