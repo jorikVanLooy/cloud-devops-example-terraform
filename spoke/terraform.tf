@@ -36,7 +36,7 @@ resource "azurerm_container_app_environment" "aca_env" {
   log_analytics_workspace_id = azurerm_log_analytics_workspace.workspace.id
 }
 
-resource "azurerm_container_app" "aca" {
+resource "azurerm_container_app" "aca-uat" {
   name                         = "${var.env}-app"
   container_app_environment_id = azurerm_container_app_environment.aca_env.id
   resource_group_name          = data.azurerm_resource_group.rg.name
@@ -60,6 +60,48 @@ resource "azurerm_container_app" "aca" {
       memory = "0.5Gi"
 
     }
+  }
+
+  lifecycle {
+    ignore_changes = [
+      template.container["image"]
+    ]
+  }
+
+}
+
+resource "azurerm_container_app" "aca-dev" {
+  count = var.env == "dev" ? 1 : 0
+
+  name                         = "${var.env}-app"
+  container_app_environment_id = azurerm_container_app_environment.aca_env.id
+  resource_group_name          = data.azurerm_resource_group.rg.name
+  revision_mode                = "Single"
+
+  ingress {
+    target_port      = 8080
+    external_enabled = true
+
+    traffic_weight {
+      latest_revision = true
+      percentage      = 100
+    }
+  }
+
+  template {
+    container {
+      name   = "java-react-example-app"
+      image  = "docker.io/jorikvl/cloud-devops-example:latest"
+      cpu    = 0.25
+      memory = "0.5Gi"
+
+    }
+  }
+
+  lifecycle {
+    ignore_changes = [
+      template.container["image"]
+    ]
   }
 
 }
