@@ -116,7 +116,7 @@ resource "azurerm_user_assigned_identity" "mi-deploy-aca" {
 resource "azurerm_role_assignment" "deploy-dev" {
   scope                = data.azurerm_resource_group.rg.id
   role_definition_name = "Contributor"
-  principal_id         = azurerm_user_assigned_identity.mi-deploy-aca.id
+  principal_id         = azurerm_user_assigned_identity.mi-deploy-aca.principal_id
 
 }
 
