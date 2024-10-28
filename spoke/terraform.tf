@@ -98,10 +98,35 @@ resource "azurerm_container_app" "aca-uat" {
     }
   }
 
+
   lifecycle {
     ignore_changes = [
       template[0].container["image"]
     ]
   }
+}
+
+
+resource "azurerm_user_assigned_identity" "mi-deploy-aca" {
+  name                = "mi-aca-${var.env}"
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+}
+
+resource "azurerm_role_assignment" "deploy-dev" {
+  scope                = data.azurerm_resource_group.rg.id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_user_assigned_identity.mi-deploy-aca.id
 
 }
+
+resource "azurerm_federated_identity_credential" "deploy-app" {
+  name                = "deploy-${var.env}"
+  resource_group_name = data.azurerm_resource_group.rg
+  issuer              = "https://token.actions.githubusercontent.com"
+  subject             = "repo:${var.GH_organization}/${var.GH_repo}:environment:${var.env}"
+  parent_id           = azurerm_user_assigned_identity.mi-deploy-aca.id
+  audience            = "api://AzureADTokenExchange"
+
+}
+
