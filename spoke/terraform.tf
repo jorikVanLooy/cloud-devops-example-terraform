@@ -36,7 +36,7 @@ resource "azurerm_container_app_environment" "aca_env" {
   log_analytics_workspace_id = azurerm_log_analytics_workspace.workspace.id
 }
 
-resource "azurerm_container_app" "aca-uat" {
+resource "azurerm_container_app" "aca-dev" {
   name                         = "${var.env}-app"
   container_app_environment_id = azurerm_container_app_environment.aca_env.id
   resource_group_name          = data.azurerm_resource_group.rg.name
@@ -70,10 +70,10 @@ resource "azurerm_container_app" "aca-uat" {
 
 }
 
-resource "azurerm_container_app" "aca-dev" {
+resource "azurerm_container_app" "aca-uat" {
   count = var.env == "dev" ? 1 : 0
 
-  name                         = "${var.env}-app"
+  name                         = "${var.env}-app-uat"
   container_app_environment_id = azurerm_container_app_environment.aca_env.id
   resource_group_name          = data.azurerm_resource_group.rg.name
   revision_mode                = "Single"
