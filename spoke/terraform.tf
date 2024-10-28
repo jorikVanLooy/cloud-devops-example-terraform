@@ -126,7 +126,7 @@ resource "azurerm_federated_identity_credential" "deploy-app" {
   issuer              = "https://token.actions.githubusercontent.com"
   subject             = "repo:${var.GH_organization}/${var.GH_repo}:environment:${var.env}"
   parent_id           = azurerm_user_assigned_identity.mi-deploy-aca.id
-  audience            = "api://AzureADTokenExchange"
+  audience            = ["api://AzureADTokenExchange"]
 
 }
 
