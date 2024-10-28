@@ -11,12 +11,12 @@ resource "azurerm_container_app_environment" "aca_env-java" {
   name                       = "${var.env}-environment-java"
   location                   = data.azurerm_resource_group.rg.location
   resource_group_name        = data.azurerm_resource_group.rg.name
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.workspace.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.workspace-java.id
 }
 
 resource "azurerm_container_app" "aca-dev-java" {
   name                         = "${var.env}-app-java"
-  container_app_environment_id = azurerm_container_app_environment.aca_env.id
+  container_app_environment_id = azurerm_container_app_environment.aca_env-java.id
   resource_group_name          = data.azurerm_resource_group.rg.name
   revision_mode                = "Single"
 
@@ -57,7 +57,7 @@ resource "azurerm_user_assigned_identity" "mi-deploy-aca-java" {
 resource "azurerm_role_assignment" "deploy-dev-java" {
   scope                = data.azurerm_resource_group.rg.id
   role_definition_name = "Contributor"
-  principal_id         = azurerm_user_assigned_identity.mi-deploy-aca.principal_id
+  principal_id         = azurerm_user_assigned_identity.mi-deploy-aca-java.principal_id
 
 }
 
@@ -66,7 +66,7 @@ resource "azurerm_federated_identity_credential" "deploy-app-java" {
   resource_group_name = data.azurerm_resource_group.rg.name
   issuer              = "https://token.actions.githubusercontent.com"
   subject             = "repo:${var.GH_organization}/${var.GH_repo-java}:environment:${var.env}"
-  parent_id           = azurerm_user_assigned_identity.mi-deploy-aca.id
+  parent_id           = azurerm_user_assigned_identity.mi-deploy-aca-java.id
   audience            = ["api://AzureADTokenExchange"]
 
 }
