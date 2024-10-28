@@ -64,7 +64,7 @@ resource "azurerm_container_app" "aca-uat" {
 
   lifecycle {
     ignore_changes = [
-      template["container"]["image"]
+      template[0].container["image"]
     ]
   }
 
@@ -100,7 +100,7 @@ resource "azurerm_container_app" "aca-dev" {
 
   lifecycle {
     ignore_changes = [
-      template["container"]["image"]
+      template[0].container["image"]
     ]
   }
 
