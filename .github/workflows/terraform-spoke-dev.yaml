@@ -53,7 +53,7 @@ jobs:
       working-directory: ${{ env.work-dir }}
 
     - name: Terraform apply
-      run: terraform apply -input=false -var-file=variables/DEV.tfvars -var-file=variables/all.tfvars
+      run: terraform apply -input=false -var-file=variables/DEV.tfvars -var-file=variables/all.tfvars -auto-approve
       working-directory: ${{ env.work-dir }}
       
 
