@@ -14,6 +14,7 @@ resource "azurerm_container_app_environment" "aca_env-dotnet" {
   log_analytics_workspace_id = azurerm_log_analytics_workspace.workspace-dotnet.id
 }
 
+
 resource "azurerm_container_app" "aca-dev-dotnet" {
   name                         = "${var.env}-app-dotnet"
   container_app_environment_id = azurerm_container_app_environment.aca_env-dotnet.id
