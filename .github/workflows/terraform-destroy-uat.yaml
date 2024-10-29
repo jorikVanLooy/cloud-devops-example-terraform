@@ -1,4 +1,4 @@
-name: 'Terraform destroy DEV'
+name: 'Terraform destroy UAT'
 
 on:
   workflow_dispatch:
