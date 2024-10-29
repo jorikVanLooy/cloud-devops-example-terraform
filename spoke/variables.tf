@@ -10,6 +10,10 @@ variable "GH_organization" {
   type = string
 }
 
-variable "GH_repo" {
+variable "GH_repo-java" {
+  type = string
+}
+
+variable "GH_repo-dotnet" {
   type = string
 }
