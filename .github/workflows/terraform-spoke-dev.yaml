@@ -1,6 +1,7 @@
 name: 'Terraform dev'
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "dev" ]
     paths:
