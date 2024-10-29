@@ -22,7 +22,7 @@ resource "azurerm_container_app" "aca-dev-dotnet" {
   revision_mode                = "Single"
 
   ingress {
-    target_port      = 8080
+    target_port      = 80
     external_enabled = true
 
     traffic_weight {
