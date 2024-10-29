@@ -2,11 +2,6 @@ name: 'Terraform dev'
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "dev" ]
-    paths:
-    - "spoke/**"
-    - "!hub/**"
   pull_request:
 
 permissions:

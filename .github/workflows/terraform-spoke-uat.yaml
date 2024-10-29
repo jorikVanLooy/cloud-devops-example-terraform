@@ -7,20 +7,19 @@ on:
     paths:
     - "spoke/**"
     - "!hub/**"
-  pull_request:
 
 permissions:
   id-token: write
 
 jobs:
   Terraform:
-    name: "Terraform dev"
+    name: "Terraform uat"
     env: 
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-    environment: "dev"
+    environment: "uat"
     defaults:
       run:
         shell: bash
@@ -57,7 +56,6 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false -var-file=variables/UAT.tfvars -var-file=variables/all.tfvars
-
       working-directory: spoke
 
 
