@@ -22,7 +22,7 @@ resource "azurerm_container_app" "aca-dev-java" {
 
   ingress {
     target_port      = 8080
-    external_enabled = true
+    external_enabled = false
 
     traffic_weight {
       latest_revision = true
@@ -33,7 +33,41 @@ resource "azurerm_container_app" "aca-dev-java" {
   template {
     container {
       name   = "java-react-example-app"
-      image  = "docker.io/jorikvl/cloud-devops-example:latest"
+      image  = "docker.io/nginx:latest"
+      cpu    = 0.25
+      memory = "0.5Gi"
+
+    }
+  }
+
+  lifecycle {
+    ignore_changes = [
+      template[0].container["image"]
+    ]
+  }
+
+}
+
+resource "azurerm_container_app" "aca-dev-react" {
+  name                         = "${var.env}-app-react"
+  container_app_environment_id = azurerm_container_app_environment.aca_env-java.id
+  resource_group_name          = data.azurerm_resource_group.rg.name
+  revision_mode                = "Single"
+
+  ingress {
+    target_port      = 80
+    external_enabled = true
+
+    traffic_weight {
+      latest_revision = true
+      percentage      = 100
+    }
+  }
+
+  template {
+    container {
+      name   = "java-react-example-app-frontend"
+      image  = "docker.io/nginx:latest"
       cpu    = 0.25
       memory = "0.5Gi"
 
