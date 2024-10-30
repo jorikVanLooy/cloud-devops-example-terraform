@@ -33,7 +33,7 @@ resource "azurerm_container_app" "aca-dev-java" {
   template {
     container {
       name   = "java-react-example-app"
-      image  = "docker.io/jorikvl/cloud-devops-example:latest"
+      image  = "docker.io/nginx:latest"
       cpu    = 0.25
       memory = "0.5Gi"
 
@@ -67,7 +67,7 @@ resource "azurerm_container_app" "aca-dev-react" {
   template {
     container {
       name   = "java-react-example-app-frontend"
-      image  = "docker.io/jorikvl/cloud-devops-example-frontend:latest"
+      image  = "docker.io/nginx:latest"
       cpu    = 0.25
       memory = "0.5Gi"
 
