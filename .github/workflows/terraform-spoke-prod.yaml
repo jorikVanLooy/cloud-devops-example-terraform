@@ -24,7 +24,7 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       work-dir: spoke
     name: "Terraform"
-    environment: "production"
+    environment: "prod"
     defaults:
       run:
         shell: bash
