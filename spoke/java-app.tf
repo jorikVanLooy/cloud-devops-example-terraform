@@ -21,8 +21,9 @@ resource "azurerm_container_app" "aca-dev-java" {
   revision_mode                = "Single"
 
   ingress {
-    target_port      = 8080
-    external_enabled = true
+    target_port                = 8080
+    external_enabled           = true
+    allow_insecure_connections = true
 
     traffic_weight {
       latest_revision = true
